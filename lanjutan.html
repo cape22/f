@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pertanyaan simple</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #0066ff, #00ccff, #0099ff, #3366ff);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Hearts */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-float {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            animation: floatUp 6s infinite linear;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            color: #fff;
+            font-size: 12px;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            box-shadow: 
+                0 25px 45px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 650px;
+            padding: 50px;
+            animation: containerGlow 4s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes containerGlow {
+            from {
+                box-shadow: 
+                    0 25px 45px rgba(0, 0, 0, 0.1),
+                    0 0 30px rgba(0, 150, 255, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+            to {
+                box-shadow: 
+                    0 25px 45px rgba(0, 0, 0, 0.1),
+                    0 0 50px rgba(0, 200, 255, 0.5),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #fff;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.5),
+                0 0 20px rgba(0, 150, 255, 0.8),
+                0 0 30px rgba(0, 150, 255, 0.6);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+            font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .love-decoration {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .form-section {
+            margin-bottom: 35px;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.15),
+                0 0 25px rgba(0, 150, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .form-section:hover::before {
+            left: 100%;
+        }
+
+        .form-section h3 {
+            color: #fff;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #fff;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.1),
+                0 0 0 4px rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(0, 150, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #0066ff, #00ccff, #0099ff);
+            background-size: 200% 200%;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-top: 30px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.2),
+                0 0 30px rgba(0, 150, 255, 0.4);
+            animation: buttonGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes buttonGlow {
+            from {
+                box-shadow: 
+                    0 10px 20px rgba(0, 0, 0, 0.2),
+                    0 0 30px rgba(0, 150, 255, 0.4);
+            }
+            to {
+                box-shadow: 
+                    0 15px 25px rgba(0, 0, 0, 0.3),
+                    0 0 40px rgba(0, 200, 255, 0.6);
+            }
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            background-position: right center;
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.3),
+                0 0 50px rgba(0, 200, 255, 0.7);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px) scale(1.01);
+        }
+
+        .heart {
+            color: #ff69b4;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.8));
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
+            75% { transform: scale(1.1); }
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 25px;
+            display: none;
+            animation: successPulse 0.8s ease;
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes successPulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 8px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+                margin: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.8em;
+            }
+            
+            .form-section {
+                padding: 25px 20px;
+            }
+        }
+
+        /* Love particles */
+        .love-particle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: loveParticle 4s linear infinite;
+        }
+
+        @keyframes loveParticle {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="love-decoration">💙✨💙</div>
+            <h1>pertanyaan simple</h1>
+            <p>Ceritakan semua tentang dirimu yang membuatku jatuh cinta ✨</p>
+        </div>
+
+        <form id="surveyForm">
+            <!-- Bagian Kesukaan -->
+            <div class="form-section">
+                <h3><span class="emoji">💕</span> Hal-hal yang Membuat Hatimu Bahagia</h3>
+                
+                <div class="form-group">
+                    <label for="makananKesukaan">💗 Makanan yang selalu membuatmu tersenyum:</label>
+                    <input type="text" id="makananKesukaan" name="makananKesukaan" placeholder="Makanan favoritmu yang ingin kita nikmati bersama..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="minumanKesukaan">💙 Minuman yang membuatmu rileks:</label>
+                    <input type="text" id="minumanKesukaan" name="minumanKesukaan" placeholder="Minuman yang ingin kita minum sambil ngobrol..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tempatKesukaan">✨ Tempat kesukaan Kamu:</label>
+                    <input type="text" id="tempatKesukaan" name="tempatKesukaan" placeholder="Tempat yang ingin kita kunjungi bersama..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="kebiasaanDisukai">💖 Kebiasaan manis yang kamu suka:</label>
+                    <textarea id="kebiasaanDisukai" name="kebiasaanDisukai" placeholder="Ceritakan kebiasaan-kebiasaan indah yang membuatmu unik dan istimewa..." required></textarea>
+                </div>
+            </div>
+
+            <!-- Bagian yang Dibenci -->
+            <div class="form-section">
+                <h3><span class="emoji">💔</span> Hal-hal yang Membuatmu Sedih</h3>
+                
+                <div class="form-group">
+                    <label for="yangDibenci">💔 Apa yang membuatmu tidak nyaman:</label>
+                    <textarea id="yangDibenci" name="yangDibenci" placeholder="Beritahu aku agar aku bisa membuatmu selalu bahagia dan terhindar dari yang membuatmu sedih..." required></textarea>
+                </div>
+            </div>
+
+            <!-- Pesan Tambahan -->
+            <div class="form-section">
+                <h3><span class="emoji">💌</span> Pesan untuk orang yang membuat</h3>
+                
+                <div class="form-group">
+                    <label for="pesanTambahan"> Pesan spesial yang ingin kamu sampaikan padaku:</label>
+                    <textarea id="pesanTambahan" name="pesanTambahan" placeholder="Tuliskan semua yang ada di hatimu... aku akan membacanya dengan penuh cinta..." required></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Kirimkan dengan benar <span class="heart"></span>
+            </button>
+        </form>
+
+        <div id="successMessage" class="success-message">
+            <strong>terimakasih sudah mengirim kan</strong><br>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-cqakFg-27RmYI_y3x7ZuqucehCUc-_q1RvKxY5zWK_Rturu94pBWoo25hurAWGNYWA/exec';
+        
+        // Listener form submit
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+        
+            const formData = new FormData(this);
+            const data = {};
+        
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+        
+            data.timestamp = new Date().toLocaleString('id-ID');
+            submitToGoogleSheets(data);
+        });
+        
+        // === INI YANG DIPAKAI (versi kirim ke Google Sheets) ===
+        function submitToGoogleSheets(data) {
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+        
+            submitBtn.innerHTML = 'Mengirimkan pesan... 💙💖💙';
+            submitBtn.disabled = true;
+        
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === 'success') {
+                    document.getElementById('surveyForm').reset();
+                    document.getElementById('successMessage').style.display = 'block';
+        
+                    addSparkles(document.querySelector('.container'));
+        
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 6000);
+                } else {
+                    alert("❌ Gagal menyimpan: " + result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Maaf sayang, ada masalah teknis 💙❤️');
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+        
+        // ==== Efek animasi tetap jalan ====
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.innerHTML = Math.random() > 0.5 ? '💙' : '💖';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            
+            document.getElementById('floatingHearts').appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        
+        setInterval(createFloatingHeart, 800);
+        
+        function addSparkles(element) {
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    
+                    element.style.position = 'relative';
+                    element.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 2000);
+                }, i * 100);
+            }
+        }
+        
+        document.querySelectorAll('input, textarea').forEach(element => {
+            element.addEventListener('focus', () => {
+                addSparkles(element.closest('.form-group'));
+            });
+        });
+        
+        document.querySelectorAll('.form-section').forEach(section => {
+            section.addEventListener('mouseenter', () => {
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const particle = document.createElement('div');
+                        particle.className = 'love-particle';
+                        particle.innerHTML = ['💙', '💖', '✨', '💕'][Math.floor(Math.random() * 4)];
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.top = '100%';
+                        section.appendChild(particle);
+                        setTimeout(() => particle.remove(), 4000);
+                    }, i * 200);
+                }
+            });
+        });
+        </script>
+        
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Masuk</title>
+</head>
+<body>
+  <section>
+    <div class="satu" id="formBox">
+      <h2>Masukkan Nama Kamu</h2>
+      <form id="loginForm">
+        <input type="text" id="nama" name="nama" placeholder="Nama kamu" required>
+        <button type="submit">Masuk</button>
+        <div class="error" id="errorMsg"></div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // Animasi muncul saat halaman dimuat
+    window.addEventListener("load", () => {
+      document.getElementById("formBox").classList.add("show");
+    });
+
+    // Daftar nama yang diizinkan masuk
+    const allowedNames = ["naira", "Naira", "Banda naira"]; 
+
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); 
+      const nama = document.getElementById("nama").value.trim();
+
+      if (allowedNames.includes(nama)) {
+        // Arahkan ke halaman selanjutnya dengan membawa nama di URL
+        window.location.href = "lanjutan.html?nama=" + encodeURIComponent(nama);
+      } else {
+        errorMsg.textContent = "Nama tidak dikenal. Akses ditolak!";
+      }
+    });
+  </script>
+
+  <!-- CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .satu {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: all 0.6s ease;
+    }
+    .satu.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 80%;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,49 @@
+section{
+justify-content: center;
+display: flex;
+margin: 10px;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+align-items: center;
+height: 100vh;
+flex-wrap: wrap;
+
+}
+
+.satu{
+    display: grid;
+    background-color: pink;
+    width: 500px;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.satu input{
+    width: 220px;
+    height: 30px;
+    border-radius: 30px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    border: none;
+}
+
+.satu button{
+    margin: 10px;
+    height: 30px;
+    width: 200px;
+    border-radius: 20px;
+    color: black;
+    text-decoration: none;
+    background-color: white;
+    text-align: center;
+    justify-content: center;
+    align-items: center;  
+    transition: 0.5s;
+    border: none;
+
+}
+
+.satu button:hover{
+    background-color: aquamarine;
+    transition: 0.5s;
+}
